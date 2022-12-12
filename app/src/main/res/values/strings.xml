@@ -5,6 +5,10 @@
     <string name="placeholder_search">Search Note</string>
     <string name="note_detail_title_page">Note Detail</string>
     <string name="no_content">No Content</string>
+    <string name="add_note">Add Note</string>
+    <string name="add_note_title_placeholder">Add Note Title</string>
+    <string name="add_note_content_placeholder">Add Note Content</string>
+    <string name="add_author_placeholder">Add Author</string>
 
     <!--  Content Description  -->
 </resources>

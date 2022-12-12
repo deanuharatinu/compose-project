@@ -1,7 +1,11 @@
 package com.deanuharatinu.composenote
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -16,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.deanuharatinu.composenote.ui.components.ComposeNoteTopBar
 import com.deanuharatinu.composenote.ui.navigation.Screen
+import com.deanuharatinu.composenote.ui.screen.addnote.AddNoteScreen
 import com.deanuharatinu.composenote.ui.screen.detail.NoteDetailScreen
 import com.deanuharatinu.composenote.ui.screen.home.HomeScreen
 import com.deanuharatinu.composenote.ui.theme.ComposeNoteTheme
@@ -44,10 +49,26 @@ fun ComposeNoteApp(
             backClick = { navController.navigateUp() }
           )
         }
+        Screen.AddNote.route -> {
+          ComposeNoteTopBar(
+            title = stringResource(id = R.string.add_note),
+            backClick = { navController.navigateUp() }
+          )
+        }
         else -> {
           ComposeNoteTopBar(
             title = stringResource(R.string.note_detail_title_page),
             backClick = { navController.navigateUp() }
+          )
+        }
+      }
+    },
+    floatingActionButton = {
+      if (currentRoute == Screen.Home.route) {
+        FloatingActionButton(onClick = { navController.navigate(Screen.AddNote.route) }) {
+          Image(
+            imageVector = Icons.Default.Add,
+            contentDescription = stringResource(R.string.add_note)
           )
         }
       }
@@ -66,6 +87,9 @@ fun ComposeNoteApp(
         )
       }
       composable(Screen.About.route) { }
+      composable(Screen.AddNote.route) {
+        AddNoteScreen(navigateBack = { navController.navigateUp() })
+      }
       composable(
         route = Screen.NoteDetail.route,
         arguments = listOf(navArgument("noteId") { type = NavType.StringType }),

@@ -54,7 +54,7 @@ fun NoteDetailScreen(
           val note = uiState.data
           NoteDetailContent(
             noteId = note.id,
-            photoUrl = note.photoUrl.orEmpty(),
+            photoUrl = note.photoUrl,
             title = note.title,
             content = note.noteContent,
             author = note.author ?: "No Author",

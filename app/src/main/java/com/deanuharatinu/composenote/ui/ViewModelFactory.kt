@@ -3,6 +3,7 @@ package com.deanuharatinu.composenote.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.deanuharatinu.composenote.data.NoteRepository
+import com.deanuharatinu.composenote.ui.screen.addnote.AddNoteViewModel
 import com.deanuharatinu.composenote.ui.screen.detail.NoteDetailViewModel
 import com.deanuharatinu.composenote.ui.screen.home.HomeViewModel
 
@@ -14,6 +15,8 @@ class ViewModelFactory(private val repository: NoteRepository) :
       return HomeViewModel(repository) as T
     } else if (modelClass.isAssignableFrom(NoteDetailViewModel::class.java)) {
       return NoteDetailViewModel(repository) as T
+    } else if (modelClass.isAssignableFrom(AddNoteViewModel::class.java)) {
+      return AddNoteViewModel(repository) as T
     }
 
     throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

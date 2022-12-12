@@ -96,7 +96,7 @@ fun HomeContent(
   navigateToNoteDetail: (noteId: String) -> Unit,
 ) {
   LazyColumn(
-    contentPadding = PaddingValues(top = 16.dp, bottom = 50.dp),
+    contentPadding = PaddingValues(top = 16.dp, bottom = 80.dp),
     modifier = modifier,
   ) {
     items(noteList, key = { it.id }) { note ->
@@ -112,7 +112,6 @@ fun HomeContent(
     }
   }
 }
-
 
 @Composable
 @Preview(showBackground = true)

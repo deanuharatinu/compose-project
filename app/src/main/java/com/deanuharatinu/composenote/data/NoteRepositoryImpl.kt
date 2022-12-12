@@ -38,6 +38,10 @@ class NoteRepositoryImpl : NoteRepository {
     noteList.removeIf { it.id == noteId }
   }
 
+  override fun addNote(note: Note) {
+    noteList.add(note)
+  }
+
   companion object {
     @Volatile
     private var instance: NoteRepository? = null

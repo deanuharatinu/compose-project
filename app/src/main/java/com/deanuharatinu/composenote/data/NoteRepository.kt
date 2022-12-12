@@ -11,4 +11,6 @@ interface NoteRepository {
   fun getNote(noteId: String): Flow<Note>
 
   fun deleteNote(noteId: String)
+
+  fun addNote(note: Note)
 }
