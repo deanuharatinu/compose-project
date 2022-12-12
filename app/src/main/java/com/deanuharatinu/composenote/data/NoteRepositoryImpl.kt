@@ -1,5 +1,7 @@
 package com.deanuharatinu.composenote.data
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.deanuharatinu.composenote.model.FakeNoteDataSource
 import com.deanuharatinu.composenote.model.Note
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +26,16 @@ class NoteRepositoryImpl : NoteRepository {
         it.title.contains(query, ignoreCase = true)
       }
     )
+  }
+
+  override fun getNote(noteId: String): Flow<Note> {
+    val noteList = noteList.filter { it.id == noteId }
+    return flowOf(noteList[0])
+  }
+
+  @RequiresApi(Build.VERSION_CODES.N)
+  override fun deleteNote(noteId: String) {
+    noteList.removeIf { it.id == noteId }
   }
 
   companion object {

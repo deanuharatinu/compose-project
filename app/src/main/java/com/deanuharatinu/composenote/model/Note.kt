@@ -6,7 +6,8 @@ data class Note(
   val id: String = UUID.randomUUID().toString(),
   val title: String,
   val noteContent: String,
-  val author: String,
-  val dateCreated: String,
+  val author: String? = null,
+  val dateCreated: String? = null,
   val dateUpdated: String? = null,
+  val photoUrl: String? = null,
 )

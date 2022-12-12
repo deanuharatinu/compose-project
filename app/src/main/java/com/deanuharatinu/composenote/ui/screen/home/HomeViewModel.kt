@@ -21,7 +21,11 @@ class HomeViewModel(private val repository: NoteRepository) : ViewModel() {
   private val _query = mutableStateOf("")
   val query: State<String> get() = _query
 
-  fun getAllNotes() {
+  init {
+    getAllNotes()
+  }
+
+  private fun getAllNotes() {
     viewModelScope.launch {
       repository.getAllNotes()
         .catch {
@@ -43,8 +47,11 @@ class HomeViewModel(private val repository: NoteRepository) : ViewModel() {
           _uiState.value = UiState.Error(it.message.toString())
         }
         .collect { noteList ->
-          delay(1000)
-          _uiState.value = UiState.Success(noteList)
+          if (noteList.isNotEmpty()) {
+            _uiState.value = UiState.Success(noteList)
+          } else {
+            _uiState.value = UiState.Error("No content")
+          }
         }
     }
   }

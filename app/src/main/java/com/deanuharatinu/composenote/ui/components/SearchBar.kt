@@ -29,6 +29,7 @@ fun SearchBar(
       .fillMaxWidth()
       .heightIn(48.dp)
       .clip(RoundedCornerShape(16.dp)),
+    maxLines = 1,
     leadingIcon = {
       Icon(
         imageVector = Icons.Default.Search,

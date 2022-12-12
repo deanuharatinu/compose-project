@@ -8,12 +8,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.deanuharatinu.composenote.ui.components.ComposeNoteTopBar
 import com.deanuharatinu.composenote.ui.navigation.Screen
+import com.deanuharatinu.composenote.ui.screen.detail.NoteDetailScreen
 import com.deanuharatinu.composenote.ui.screen.home.HomeScreen
 import com.deanuharatinu.composenote.ui.theme.ComposeNoteTheme
 
@@ -38,12 +41,13 @@ fun ComposeNoteApp(
         Screen.About.route -> {
           ComposeNoteTopBar(
             title = stringResource(R.string.about_title_page),
-            backClick = {}
+            backClick = { navController.navigateUp() }
           )
         }
         else -> {
           ComposeNoteTopBar(
-            backClick = {}
+            title = stringResource(R.string.note_detail_title_page),
+            backClick = { navController.navigateUp() }
           )
         }
       }
@@ -55,12 +59,25 @@ fun ComposeNoteApp(
       modifier = Modifier.padding(innerPadding)
     ) {
       composable(Screen.Home.route) {
-        HomeScreen()
+        HomeScreen(
+          navigateToNoteDetail = { noteId ->
+            navController.navigate(Screen.NoteDetail.createRoute(noteId))
+          }
+        )
       }
       composable(Screen.About.route) { }
       composable(
         route = Screen.NoteDetail.route,
-      ) { }
+        arguments = listOf(navArgument("noteId") { type = NavType.StringType }),
+      ) {
+        val noteId = it.arguments?.getString("noteId") ?: ""
+        NoteDetailScreen(
+          noteId = noteId,
+          navigateBack = {
+            navController.navigateUp()
+          }
+        )
+      }
     }
   }
 }

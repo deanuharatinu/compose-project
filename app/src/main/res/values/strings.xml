@@ -3,6 +3,8 @@
     <string name="home_page_title">Compose Note App</string>
     <string name="about_title_page">About</string>
     <string name="placeholder_search">Search Note</string>
+    <string name="note_detail_title_page">Note Detail</string>
+    <string name="no_content">No Content</string>
 
     <!--  Content Description  -->
 </resources>
