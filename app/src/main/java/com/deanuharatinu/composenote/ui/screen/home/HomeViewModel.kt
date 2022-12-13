@@ -32,7 +32,6 @@ class HomeViewModel(private val repository: NoteRepository) : ViewModel() {
           _uiState.value = UiState.Error(it.message.toString())
         }
         .collect { noteList ->
-          delay(1000)
           _uiState.value = UiState.Success(noteList)
         }
     }
@@ -40,8 +39,8 @@ class HomeViewModel(private val repository: NoteRepository) : ViewModel() {
 
   fun searchNote(query: String) {
     viewModelScope.launch {
-      _uiState.value = UiState.Loading
       _query.value = query
+      _uiState.value = UiState.Loading
       repository.searchNote(_query.value)
         .catch {
           _uiState.value = UiState.Error(it.message.toString())

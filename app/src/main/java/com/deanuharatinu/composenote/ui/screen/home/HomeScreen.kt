@@ -9,6 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -97,7 +98,8 @@ fun HomeContent(
 ) {
   LazyColumn(
     contentPadding = PaddingValues(top = 16.dp, bottom = 80.dp),
-    modifier = modifier,
+    modifier = modifier
+      .testTag("lazy_column"),
   ) {
     items(noteList, key = { it.id }) { note ->
       NoteItem(

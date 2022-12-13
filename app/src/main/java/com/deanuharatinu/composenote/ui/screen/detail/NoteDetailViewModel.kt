@@ -23,7 +23,6 @@ class NoteDetailViewModel(private val repository: NoteRepository) : ViewModel() 
           _uiState.value = UiState.Error(it.message.toString())
         }
         .collect { note ->
-          delay(1000)
           _uiState.value = UiState.Success(note)
         }
     }
