@@ -1,5 +1,6 @@
 package com.deanuharatinu.composenote.ui.screen.addnote
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,6 +22,7 @@ import com.deanuharatinu.composenote.R
 import com.deanuharatinu.composenote.di.Injection
 import com.deanuharatinu.composenote.model.Note
 import com.deanuharatinu.composenote.ui.ViewModelFactory
+import com.deanuharatinu.composenote.ui.common.UiState
 import com.deanuharatinu.composenote.ui.components.AddNoteTextField
 import com.deanuharatinu.composenote.ui.theme.ComposeNoteTheme
 
@@ -29,12 +32,26 @@ fun AddNoteScreen(
   navigateBack: () -> Unit,
   viewModel: AddNoteViewModel = viewModel(factory = ViewModelFactory(Injection.provideRepository())),
 ) {
+  val context = LocalContext.current
+
   AddNoteContent(
     modifier = modifier,
-    onAddNoteClick = { note ->
-      viewModel.addNote(note)
-      navigateBack()
-    })
+    onAddNoteClick = viewModel::addNote
+  )
+
+  viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
+    when (uiState) {
+      is UiState.Loading -> {
+        // Empty
+      }
+      is UiState.Error -> {
+        Toast.makeText(context, stringResource(id = R.string.warning_add_note), Toast.LENGTH_SHORT)
+          .show()
+        viewModel.resetUiState()
+      }
+      is UiState.Success -> navigateBack()
+    }
+  }
 }
 
 @Composable

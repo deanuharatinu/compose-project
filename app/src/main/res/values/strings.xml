@@ -9,6 +9,5 @@
     <string name="add_note_title_placeholder">Add Note Title</string>
     <string name="add_note_content_placeholder">Add Note Content</string>
     <string name="add_author_placeholder">Add Author</string>
-
-    <!--  Content Description  -->
+    <string name="warning_add_note">Data tidak lengkap. Silakan lengkapi sebelum menambahkan Note</string>
 </resources>

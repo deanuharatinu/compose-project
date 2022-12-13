@@ -2,6 +2,7 @@ package com.deanuharatinu.composenote.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.deanuharatinu.composenote.model.About
 import com.deanuharatinu.composenote.model.FakeNoteDataSource
 import com.deanuharatinu.composenote.model.Note
 import kotlinx.coroutines.flow.Flow
@@ -9,6 +10,11 @@ import kotlinx.coroutines.flow.flowOf
 
 class NoteRepositoryImpl : NoteRepository {
   private val noteList = mutableListOf<Note>()
+  private val about = About(
+    name = "deanuharatinu",
+    email = "deanu.alt@gmail.com",
+    photoUrl = null
+  )
 
   init {
     if (noteList.isEmpty()) {
@@ -41,6 +47,8 @@ class NoteRepositoryImpl : NoteRepository {
   override fun addNote(note: Note) {
     noteList.add(note)
   }
+
+  override fun getAbout(): Flow<About> = flowOf(about)
 
   companion object {
     @Volatile

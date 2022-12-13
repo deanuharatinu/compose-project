@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.deanuharatinu.composenote.ui.components.ComposeNoteTopBar
 import com.deanuharatinu.composenote.ui.navigation.Screen
+import com.deanuharatinu.composenote.ui.screen.about.AboutScreen
 import com.deanuharatinu.composenote.ui.screen.addnote.AddNoteScreen
 import com.deanuharatinu.composenote.ui.screen.detail.NoteDetailScreen
 import com.deanuharatinu.composenote.ui.screen.home.HomeScreen
@@ -40,13 +41,13 @@ fun ComposeNoteApp(
         Screen.Home.route -> {
           ComposeNoteTopBar(
             title = stringResource(R.string.home_page_title),
-            aboutClick = {}
+            aboutClick = { navController.navigate(Screen.About.route) }
           )
         }
         Screen.About.route -> {
           ComposeNoteTopBar(
             title = stringResource(R.string.about_title_page),
-            backClick = { navController.navigateUp() }
+            backClick = { navController.navigateUp() },
           )
         }
         Screen.AddNote.route -> {
@@ -86,7 +87,9 @@ fun ComposeNoteApp(
           }
         )
       }
-      composable(Screen.About.route) { }
+      composable(Screen.About.route) {
+        AboutScreen()
+      }
       composable(Screen.AddNote.route) {
         AddNoteScreen(navigateBack = { navController.navigateUp() })
       }

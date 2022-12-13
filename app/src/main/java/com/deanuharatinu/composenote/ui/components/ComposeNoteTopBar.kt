@@ -35,7 +35,7 @@ fun ComposeNoteTopBar(
     actions = {
       aboutClick?.run {
         IconButton(onClick = aboutClick) {
-          Icon(imageVector = Icons.Filled.Person, contentDescription = null)
+          Icon(imageVector = Icons.Filled.Person, contentDescription = "about_page")
         }
       }
     }
